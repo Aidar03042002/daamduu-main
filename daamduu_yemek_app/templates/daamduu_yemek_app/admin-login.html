@@ -1,0 +1,200 @@
+{% extends "daamduu_yemek_app/base.html" %}
+{% load static %}
+
+{% block title %}Yönetici Girişi | Daamduu Yemek{% endblock %}
+
+{% block extra_css %}
+<style>
+    .admin-auth-page {
+        min-height: 100vh;
+        background: url('{% static "images/bg/bg-21.jpg" %}') no-repeat center center/cover;
+        padding: 2rem 0;
+    }
+
+    .admin-login-card {
+        backdrop-filter: blur(15px);
+        background-color: rgba(255, 255, 255, 0.74);
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+        max-width: 500px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .btn-orange {
+        background-color: #ff6600;
+        color: white;
+    }
+
+    .btn-orange:hover {
+        background-color: #e65c00;
+    }
+
+    .form-control {
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .form-control:focus {
+        background-color: #fff;
+    }
+
+    .btn-link,
+    .btn-link:active {
+        color: #ff6600;
+        font-weight: 500;
+        text-decoration: none;
+        font-size: 1.05rem;
+        margin-top: 1.2rem;
+        display: inline-block;
+    }
+
+    .btn-link:hover {
+        color: #e65c00;
+        text-decoration: underline;
+    }
+
+    header {
+        display: none;
+    }
+
+    /* Dil Seçenekleri Stilleri */
+    .language-switcher {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-family: 'Segoe UI', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        background-color: transparent;
+    }
+
+    .lang-link {
+        color: var(--text-primary);
+        text-decoration: none;
+        padding: 4px 10px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .lang-link:hover {
+        background-color: rgb(79, 74, 74);
+    }
+
+    .lang-link.active,
+    .lang-link.active:hover {
+        background-color: rgb(79, 74, 74);
+        color: #fff !important;
+        font-weight: 700;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="admin-auth-page d-flex align-items-center">
+    <div class="container">
+        <div class="language-switcher">
+            <a href="?lang=kg" class="lang-link" id="kg-link">KG</a>
+            <span class="divider">|</span>
+            <a href="?lang=tr" class="lang-link" id="tr-link">TR</a>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="admin-login-card">
+                    <img id="logo-img" src="{% static 'images/Daamduu Tamak logo.png' %}" alt="Logo"
+                        class="img-fluid mx-auto d-block mb-3" style="max-width: 120px;">
+                    <h5 class="text-muted mb-4" data-lang-tr="Yönetici Panel Girişi" data-lang-kg="Админ панелине кирүү">Yönetici Girişi</h5>
+                        <p data-lang-tr="Yönetici hesabınızla giriş yapın."
+                            data-lang-kg="Администратордук эсебиңиз менен кириңиз."></p>
+                        <form method="post" action="{% url 'daamduu_yemek:admin_login' %}" class="admin-login-form">
+                            {% csrf_token %}
+                            <input type="email" name="email" class="form-control mb-3" required
+                                data-placeholder-tr="E-posta adresiniz" data-placeholder-kg="Электрондук почтаңыз"
+                                placeholder="">
+                            <input type="password" name="password" class="form-control mb-3" required
+                                data-placeholder-tr="Şifreniz" data-placeholder-kg="Сыр сөзүңүз" placeholder="">
+                            <button type="submit" class="btn btn-orange w-100" data-lang-tr="Giriş Yap"
+                                data-lang-kg="Кирүү">Giriş Yap</button>
+                        </form>
+                        <a href="{% url 'daamduu_yemek:login' %}" class="btn-link" data-lang-tr="Normal Girişe Dön"
+                            data-lang-kg="Кадимки киришке кайтуу">Normal Girişe Dön</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function setLangCookie(lang) {
+        document.cookie = `lang=${lang};path=/;max-age=31536000`;
+    }
+    function getLangCookie() {
+        const match = document.cookie.match(/(?:^|; )lang=([^;]*)/);
+        return match ? decodeURIComponent(match[1]) : null;
+    }
+    function getLangFromUrlOrCookie() {
+        const urlLang = new URLSearchParams(window.location.search).get('lang');
+        if (urlLang) {
+            setLangCookie(urlLang);
+            return urlLang;
+        }
+        const cookieLang = getLangCookie();
+        return cookieLang || 'kg';
+    }
+    function updatePlaceholders() {
+        const lang = getLangFromUrlOrCookie();
+        document.querySelectorAll("input[data-placeholder-tr]").forEach(input => {
+            const newPlaceholder = input.getAttribute(`data-placeholder-${lang}`);
+            if (newPlaceholder) {
+                input.placeholder = newPlaceholder;
+            }
+        });
+    }
+    function updateTexts() {
+        const lang = getLangFromUrlOrCookie();
+        document.querySelectorAll('[data-lang-tr]').forEach(el => {
+            el.textContent = el.getAttribute(`data-lang-${lang}`);
+        });
+    }
+    function updateLogo() {
+        const lang = getLangFromUrlOrCookie();
+        const logo = document.getElementById('logo-img');
+        if (logo) {
+            logo.src = lang === 'kg' 
+                ? "{% static 'images/Daamduu Tamak logo.png' %}"
+                : "{% static 'images/Lezzetli Yemek logo.png' %}";
+        }
+    }
+    function updateActiveLink() {
+        const lang = getLangFromUrlOrCookie();
+        document.querySelectorAll('.lang-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        const activeLink = document.getElementById(`${lang}-link`);
+        if (activeLink) {
+            activeLink.classList.add('active');
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        updatePlaceholders();
+        updateTexts();
+        updateLogo();
+        updateActiveLink();
+    });
+    document.querySelectorAll('.lang-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const newLang = this.id.replace('-link', '');
+            setLangCookie(newLang);
+            const currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set('lang', newLang);
+            window.location.href = currentUrl.toString();
+        });
+    });
+</script>
+{% endblock %}

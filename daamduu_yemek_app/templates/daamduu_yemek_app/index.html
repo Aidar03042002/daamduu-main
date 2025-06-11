@@ -1,0 +1,117 @@
+{% extends "daamduu_yemek_app/base.html" %}
+{% load static %}
+
+{% block title %}Daamduu Yemek{% endblock %}
+
+{% block content %}
+<!-- Top-Banner Section -->
+<section id="home">
+    <div class="top-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="pt-3" data-lang-tr="Beslenme Hizmetleri" data-lang-kg="Тамак-аш тейлөө кызматы"></h5>
+                    <p style="text-align: justify;" data-lang-tr="Sağlık Kültür Spor Dairesi Başkanlığına bağlı Kantin-Kafeterya birimi
+                    üniversitemizin öğrencileri ve
+                    çalışanlarının hijyenik şartlara uygun, faydalı gıdalarla ve doğru beslenmesi için gerekli imkânları
+                    sağlamakla yükümlüdür. Yemek pişirme süreci Cengiz Aytmatov Kampüsü'nde bulunan Sosyal Tesisler'deki
+                    mevcut binadaki yemekhanede devam etmektedir. Yemekhane Servis Hizmetleri Birimi öğrenciler, öğretim
+                    elemanları ve idari personelin öğle ve akşam yemeği ihtiyaçlarını karşılamaktadır. Üniversitemiz
+                    tarafından hazırlanan bir aylık menü, doğru ve yeterli beslenme usûllerine göre ve öğrencilerin
+                    isteklerine göre ve mevsim şartları da dikkate alınarak hazırlanmaktadır. Menü, şu temel ürünler
+                    çerçevesinde hazırlanır: et ürünleri, tavuk ve balık ürünleri, sıcak ve soğuk gıdalar, salatalar,
+                    tatlılar, meyveler vb. Satışa sunulan yiyecek ve içeceklerin her birinden numune alınıp sıhhi kurallara
+                    uygun biçimde 72 saat süreyle muhafaza ve kontrol edilmektedir. Üniversitenin sosyal, kültürel ve sportif
+                    etkinliklerine aktif olarak katılanlara etkinlik sırasında yemek ihtiyaçları olduğunda kahvaltı, çay,
+                    kahve, öğle ve akşam yemekleri, paketlenmiş yiyecekler(köfte ekmek arası, sandviç, hamburger vb.) verilir.
+                    Yemekhane sevisinde çalışanların tamamı özel kıyafetler (forma, eldiven ve başlık) giyerek servis
+                    yapmaktadır."
+                        data-lang-kg="Турмуш-тиричиликти тейлөө жана кантин-кафетерия иштетүү бөлүмү университеттин студенттери менен кызматкерлеринин пайдалуу, туура жана гигиеналык талаптарга жооп берген шартта тамактануусун камсыздайт. Тамак даярдоо процесси Ч. Айтматов атындагы студенттик шаарчанын ичинде жайгашкан социалдык багыттагы объектилердин ашканасында жүргүзүлөт. Тамак-аш менен тейлөө бөлүмү студенттер менен кызматкерлердин түшкү жана кечки тамактануусун тейлейт. Университетте даярдалган ысык тамактардын бир айлыk менюсу туура тамактанууну камсыз кылуу максатында студенттердин суроо-талаптары жана мезгилдин өзгөчөлүктөрү эске алынуу менен түзүлөт. Менюнун негизин төмөндөгүлөр түзөт: эт азыктары, тоок жана балык азыктары, ысык-муздак закускалар, салаттар, татуу токочтор, жемиштер ж.б. Сатыкка коюлган тамак-аштардын ар биринен күнүгө  үлгүлөр алынып, 72 саат эрежелерге ылайыk сакталып, текшерилип турат. Университеттин социалдык, спорттук жана маданий иш-чараларына катышкан студенттерге иш-чара учурунда эртеӊ мененки тамак, чай, кофе, түшкү жана кечки тамак, тез татым азыктары берилип турат. Кызматкерлер атайын форма: баш кийим, кол кап кийип тейлешет.  Университеттин тамак-аш инженерлери жана тамак-аш технологдору жыл мезгилине жараша талап кылынган калорияны эске алуу менен бир айлыk ысык тамактын менюсун түзүшөт жана ал окуу жайыбыздын интернет-баракчасына жайгаштырылат.">
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Bugün Menüde Section -->
+<section id="explore-food">
+    <div class="explore-food wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-content text-center">
+                        <h2 data-lang-tr="Bugün Menüde" data-lang-kg="Бүгүнкү меню">Bugün Menüde</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et purus a odio finibus
+                            bibendum in sit amet leo.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-5">
+                {% if today_menu %}
+                    <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                        <div class="card">
+                            <img src="{{ today_menu.dish1.image.url }}" class="img-fluid" alt="{{ today_menu.dish1.name }}" />
+                            <div class="p-4 pb-1">
+                                <div>
+                                    <span data-lang-tr="{{ today_menu.dish1.name }}" data-lang-kg="{{ today_menu.dish1.name }}">{{ today_menu.dish1.name }}</span>
+                                    <p data-lang-tr="Kalori: {{ today_menu.dish1.calories }}" data-lang-kg="Калория: {{ today_menu.dish1.calories }}">Kalori: {{ today_menu.dish1.calories }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                        <div class="card">
+                            <img src="{{ today_menu.dish2.image.url }}" class="img-fluid" alt="{{ today_menu.dish2.name }}" />
+                            <div class="p-4 pb-1">
+                                <div>
+                                    <span data-lang-tr="{{ today_menu.dish2.name }}" data-lang-kg="{{ today_menu.dish2.name }}">{{ today_menu.dish2.name }}</span>
+                                    <p data-lang-tr="Kalori: {{ today_menu.dish2.calories }}" data-lang-kg="Калория: {{ today_menu.dish2.calories }}">Kalori: {{ today_menu.dish2.calories }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                        <div class="card">
+                            <img src="{{ today_menu.dish3.image.url }}" class="img-fluid" alt="{{ today_menu.dish3.name }}" />
+                            <div class="p-4 pb-1">
+                                <div>
+                                    <span data-lang-tr="{{ today_menu.dish3.name }}" data-lang-kg="{{ today_menu.dish3.name }}">{{ today_menu.dish3.name }}</span>
+                                    <p data-lang-tr="Kalori: {{ today_menu.dish3.calories }}" data-lang-kg="Калория: {{ today_menu.dish3.calories }}">Kalori: {{ today_menu.dish3.calories }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                        <div class="card">
+                            <img src="{{ today_menu.dish4.image.url }}" class="img-fluid" alt="{{ today_menu.dish4.name }}" />
+                            <div class="p-4 pb-1">
+                                <div>
+                                    <span data-lang-tr="{{ today_menu.dish4.name }}" data-lang-kg="{{ today_menu.dish4.name }}">{{ today_menu.dish4.name }}</span>
+                                    <p data-lang-tr="Kalori: {{ today_menu.dish4.calories }}" data-lang-kg="Калория: {{ today_menu.dish4.calories }}">Kalori: {{ today_menu.dish4.calories }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-12 text-center">
+                        <p class="text-muted" data-lang-tr="Bugün için menü bulunmamaktadır." data-lang-kg="Бүгүнкү күнгө меню жок.">Bugün için menü bulunmamaktadır.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Book Section -->
+<section id="book-food">
+    <div class="book-food">
+        <div class="container book-food-text">
+            <div class="row text-center">
+                <div class="col-lg-12 col-md-12">
+                    <h2 data-lang-tr="Tutkuyla çalışan aşçılarımız tarafından her gün taze olarak pişirilir."
+                        data-lang-kg="Биздин  ашпозчулар тарабынан күн сайын жаңыдан даярдалат."></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

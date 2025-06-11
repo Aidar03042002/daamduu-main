@@ -1,0 +1,189 @@
+{% extends "daamduu_yemek_app/base_admin.html" %}
+{% load static %}
+
+{% block title %}QR Kod Tarayıcı | Daamduu Staff{% endblock %}
+
+{% block extra_css %}
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    #reader {
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .scan-area {
+        margin-top: 40px;
+    }
+    .alert {
+        max-width: 360px;
+        margin: 1rem auto;
+    }
+    #reader__scan_region {
+        background: white;
+    }
+    #reader__scan_region video {
+        border-radius: 12px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<header class="bg-dark text-white text-center py-4 mb-4">
+    <div class="container py-2 d-flex justify-content-end">
+        <a class="nav-link d-flex align-items-center gap-1 mt-4" href="{% url 'daamduu_yemek:logout' %}">
+          <i class="fas fa-sign-out-alt"></i>
+          <span data-lang-tr="Çıkış Yap" data-lang-kg="Чыгуу"></span>
+        </a>
+        <div class="language-switcher">
+          <a href="?lang=kg" class="lang-link" id="kg-link">KG</a>
+          <span class="divider">|</span>
+          <a href="?lang=tr" class="lang-link" id="tr-link">TR</a>
+        </div>
+      </div>
+    <h2 class="mb-4"><i class="fas fa-qrcode me-2"></i>
+        <span data-lang-tr="QR Kod Tarayıcı" data-lang-kg="QR код сканери"></span>
+    </h2>
+    <p class="mb-3 text-muted" data-lang-tr="Kamerayı Kullanarak QR Kodu Tarayın." data-lang-kg="Камераны колдонуп QR код сканда."></p>
+    <!-- <div class="language-switcher">
+        <a href="?lang=kg" class="lang-link" id="kg-link">KG</a>
+        <span class="divider">|</span>
+        <a href="?lang=tr" class="lang-link" id="tr-link">TR</a>
+    </div> -->
+</header>
+<main class="container text-center scan-area">
+    <div id="reader"></div>
+    <div id="result-message"></div>
+    <form style="display:none;">{% csrf_token %}</form>
+    <!-- <div class="mt-4">
+        <a href="{% url 'daamduu_yemek:admin_dashboard' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>
+            <span data-lang-tr="Yönetici Paneline Dön" data-lang-kg="Админ панелге кайтуу"></span>
+        </a>
+    </div> -->
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script>
+let html5QrCode = null;
+let isScanning = false;
+
+function showMessage(message, isSuccess) {
+    const resultDiv = document.getElementById('result-message');
+    resultDiv.innerHTML = `
+        <div class="alert alert-${isSuccess ? 'success' : 'danger'} alert-dismissible fade show" role="alert">
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    `;
+}
+
+async function verifyQRCode(qrData) {
+    if (!qrData) return;
+    
+    try {
+        const response = await fetch("{% url 'daamduu_yemek:verify_qr' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: `qr_data=${encodeURIComponent(qrData)}`
+        });
+        
+        const data = await response.json();
+        showMessage(data.message, data.success);
+        
+        if (data.success) {
+            stopScanner();
+        }
+    } catch (error) {
+        console.error('Verification error:', error);
+        showMessage('QR код doğrulama hatası', false);
+    }
+}
+
+function onScanSuccess(decodedText, decodedResult) {
+    if (isScanning) return;
+    isScanning = true;
+    
+    console.log('QR Code detected:', decodedText);
+    verifyQRCode(decodedText);
+}
+
+function onScanFailure(error) {
+    console.warn(`QR scan error: ${error}`);
+}
+
+function startScanner() {
+    if (html5QrCode) {
+        stopScanner();
+    }
+
+    html5QrCode = new Html5Qrcode("reader");
+    const config = {
+        fps: 10,
+        qrbox: { width: 250, height: 250 },
+        aspectRatio: 1.0,
+        formatsToSupport: [ Html5QrcodeSupportedFormats.QR_CODE ]
+    };
+
+    html5QrCode.start(
+        { facingMode: "environment" },
+        config,
+        onScanSuccess,
+        onScanFailure
+    ).then(() => {
+        isScanning = false;
+    }).catch((err) => {
+        console.error('Failed to start scanner:', err);
+        showMessage('Камераны иштетүүдө ката', false);
+    });
+}
+
+function stopScanner() {
+    if (html5QrCode) {
+        html5QrCode.stop().then(() => {
+            html5QrCode = null;
+            isScanning = false;
+        }).catch((err) => {
+            console.error('Failed to stop scanner:', err);
+        });
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const lang = new URLSearchParams(window.location.search).get('lang') || 'kg';
+    document.querySelectorAll('[data-lang-tr]').forEach(el => {
+        el.textContent = el.getAttribute(`data-lang-${lang}`);
+    });
+    
+    const activeLink = document.getElementById(`${lang}-link`);
+    if (activeLink) activeLink.classList.add("active");
+    
+    const logo = document.getElementById('logo-img');
+    if (logo) {
+        logo.src = lang === 'kg'
+            ? "{% static 'images/Daamduu Tamak logo.png' %}"
+            : "{% static 'images/Lezzetli Yemek logo.png' %}";
+    }
+
+    // Start scanner when page loads
+    startScanner();
+
+    // Add visibility change handler
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            stopScanner();
+        } else {
+            startScanner();
+        }
+    });
+});
+</script>
+{% endblock %} 

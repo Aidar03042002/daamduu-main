@@ -1,0 +1,163 @@
+{% extends "daamduu_yemek_app/base.html" %}
+{% load static %}
+
+{% block title %}Hakkımızda | Daamduu Yemek{% endblock %}
+
+{% block extra_css %}
+<style>
+    .btn-outline-warning.active {
+        box-shadow: none !important;
+        outline: none !important;
+        border: none !important;
+        background-color: #ffc107;
+        color: black;
+        font-weight: bold;
+        min-width: max-content;
+    }
+
+    .btn-group {
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+    }
+
+    .btn-group .btn {
+        white-space: nowrap;
+        min-width: max-content;
+        flex: 0 0 auto;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+
+    .hide-scroll::-webkit-scrollbar {
+        display: none;
+    }
+
+    .hide-scroll {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .scroll-wrapper {
+        max-width: 100vw;
+        overflow-x: auto;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- About Section -->
+<section id="about">
+    <div class="about-section wrapper">
+        <div class="container">
+            <div class="text-content text-center mt-4 pb-5">
+                <h2 data-lang-tr="Hakkımızda" data-lang-kg="Биз жөнүндө">Hakkımızda</h2>
+            </div>
+            <!-- Sekmeler -->
+            <div class="d-flex justify-content-center mt-1 mb-5">
+                <div class="scroll-wrapper overflow-auto hide-scroll">
+                    <div class="btn-group flex-nowrap" role="group">
+                        <button class="btn btn-outline-warning active" onclick="showSection('kampus')" data-lang-tr="Kampüs" data-lang-kg="Кампус">Kampüs</button>
+                        <button class="btn btn-outline-warning" onclick="showSection('yemekhane')" data-lang-tr="Yemekhane" data-lang-kg="Ашкана">Yemekhane</button>
+                        <button class="btn btn-outline-warning" onclick="showSection('kiraathane')" data-lang-tr="Millet Kıraathanesi" data-lang-kg="Баарлашуу жайы">Millet Kıraathanesi</button>
+                        <button class="btn btn-outline-warning" onclick="showSection('oba')" data-lang-tr="Oba Çay Bahçesi" data-lang-kg="Боз үй чай бакчасы">Oba Çay Bahçesi</button>
+                        <button class="btn btn-outline-warning" onclick="showSection('besparmak')" data-lang-tr="Beşparmak Çadırı" data-lang-kg="Бешбармак боз үйү">Beşparmak Çadırı</button>
+                        <button class="btn btn-outline-warning" onclick="showSection('kantin')" data-lang-tr="Kantin ve Kafeteryalar" data-lang-kg="Кантин жана кафетериялар">Kantin ve Kafeteryalar</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Dinamik İçerik Alanı -->
+            <div class="row align-items-center" id="dynamic-content">
+                <div class="col-lg-6 col-md-12 mb-lg-0 mb-4">
+                    <img id="section-image" src="{% static 'images/ktmu.png' %}" class="img-fluid rounded shadow-image">
+                </div>
+                <div class="col-lg-6 col-md-12 ps-lg-5 text-overlay">
+                    <h2 id="section-title" data-lang-tr="Kampüs" data-lang-kg="Кампус">Kampüs</h2>
+                    <p style="text-align: justify;" id="section-description" data-lang-tr="Kampüsümüz Jal mikro bölgesinde yer almaktadır." data-lang-kg="Кампусубуз Жал кичи аймагында жайгашкан.">Kampüsümüz Jal mikro bölgesinde yer almaktadır.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonial Section -->
+<section id="testimonial">
+    <div class="wrapper testimonial-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-lg-10">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="carousel-caption">
+                                    <img src="{% static 'images/review/yemekhane.jpg' %}" alt="review" />
+                                    <h5 data-lang-tr="Yemekhane" data-lang-kg="Ашкана">Yemekhane</h5>
+                                    <p style="text-align: justify;" data-lang-tr="Üniversitemizin öğrencilerinin ve çalışanlarının yemek ihtiyaçlarını gidermek maksadıyla kampüsümüz dâhilinde ve Merkez Bina'da bulunan yemekhanelerde hizmet sunulmaktadır. Üniversitemizin öğrenci evlerinde barınan öğrenciler için de ücretsiz kahvaltı verilmektedir. Üniversitemiz öğrencileri ile idari ve akademik personelinin sağlıklı, dengeli ve hijyenik beslenmesini amaçlamaktadır." data-lang-kg="Университеттин студенттеринин жана кызматкерлеринин тамактануусун камсыздоо максатында студенттик шаарчанын аймагында жана башкы корпусунда жайгашкан ашканаларда тейлөө кызматы көрсөтүлөт. Университеттин студенттери менен кызматкерлеринин пайдалуу, туура жана гигиеналык талаптарга жооп берген шартта тамактануусун камсыздайт.">Üniversitemizin öğrencilerinin ve çalışanlarının yemek ihtiyaçlarını gidermek maksadıyla kampüsümüz dâhilinde ve Merkez Bina'da bulunan yemekhanelerde hizmet sunulmaktadır.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-caption">
+                                    <img src="{% static 'images/review/Oba çay bahçe.jpg' %}" alt="review" />
+                                    <h5 data-lang-tr="Oba Çay Bahçesi" data-lang-kg="Боз үй чай бакчасы">Oba Çay Bahçesi</h5>
+                                    <p style="text-align: justify;" data-lang-tr="KTMÜ öğrencileri ile akademik ve idari personelin hızlıca beslenme ihtiyacını karşılamak üzere hizmet sunmakta olan yerleşkelerin biri - 2020-2021 Eğitim-Öğretim yılında faaliyete geçen Oba Çay Bahçesidir. Her gün sabah 09:00-23:00 saatleri arasında içeceklerle birlikte, çeşitli gıda ürünleri satışa sunulmaktadır." data-lang-kg="Кыргыз-Түрк Манас университетинин студенттеринин, академиялык жана административдик персоналынын тез тамактануусун камсыздоочу жайлардын бири - 2020-2021 Окуу жылында ачылган Боз үй чай бакчасы. Чай бакчасында күн сайын саат 09:00дон 23:00го чейин суусундуктар менен бирге түрдүү азык-түлүктөр сатылат.">KTMÜ öğrencileri ile akademik ve idari personelin hızlıca beslenme ihtiyacını karşılamak üzere hizmet sunmakta olan yerleşkelerin biri - 2020-2021 Eğitim-Öğretim yılında faaliyete geçen Oba Çay Bahçesidir.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-caption">
+                                    <img src="{% static 'images/review/kıraathane1.jpg' %}" alt="review" />
+                                    <h5 data-lang-tr="Millet Kıraathanesi" data-lang-kg="Баарлашуу жайы">Millet Kıraathanesi</h5>
+                                    <p style="text-align: justify;" data-lang-tr="KTMÜ öğrencileri ile akademik ve idari personelin hızlıca beslenme ihtiyacını karşılamak üzere hizmet sunmakta olan yerleşkelerin biri - 2020-2021 Eğitim-Öğretim yılında faaliyete geçen Millet Kıraathanesidir. Her gün sabah 09:00-23:00 saatleri arasında içeceklerle birlikte, çeşitli gıda ürünleri satışa sunulmaktadır." data-lang-kg="Кыргыз-Түрк Манас университетинин студенттеринин, академиялык жана административдик персоналынын тез тамактануусун камсыздоочу жайлардын бири - 2020-2021 Окуу жылында ачылган Баарлашуу жайы. Баарлашуу жайында күн сайын саат 09:00дон 23:00го чейин суусундуkтар менен бирге түрдүү азык-түлүктөр сатылат.">KTMÜ öğrencileri ile akademik ve idari personelin hızlıca beslenme ihtiyacını karşılamak üzere hizmet sunmakta olan yerleşkelerin biri - 2020-2021 Eğitim-Öğretim yılında faaliyete geçen Millet Kıraathanesidir.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function showSection(sectionId) {
+    // Remove active class from all buttons
+    document.querySelectorAll('.btn-outline-warning').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Add active class to clicked button
+    event.target.classList.add('active');
+    
+    // Update content based on section
+    const sectionImage = document.getElementById('section-image');
+    const sectionTitle = document.getElementById('section-title');
+    const sectionDescription = document.getElementById('section-description');
+    
+    // Update content based on selected section
+    switch(sectionId) {
+        case 'kampus':
+            sectionImage.src = "{% static 'images/ktmu.png' %}";
+            sectionTitle.textContent = sectionTitle.getAttribute('data-lang-tr');
+            sectionDescription.textContent = sectionDescription.getAttribute('data-lang-tr');
+            break;
+        case 'yemekhane':
+            sectionImage.src = "{% static 'images/review/yemekhane.jpg' %}";
+            sectionTitle.textContent = "Yemekhane";
+            sectionDescription.textContent = "Üniversitemizin öğrencilerinin ve çalışanlarının yemek ihtiyaçlarını gidermek maksadıyla kampüsümüz dâhilinde ve Merkez Bina'da bulunan yemekhanelerde hizmet sunulmaktadır.";
+            break;
+        // Add other cases as needed
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Language switching functionality is handled in base.html
+});
+</script>
+{% endblock %}

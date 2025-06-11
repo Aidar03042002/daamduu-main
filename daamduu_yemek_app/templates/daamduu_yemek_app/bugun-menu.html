@@ -1,0 +1,305 @@
+{% extends "daamduu_yemek_app/base.html" %}
+{% load static %}
+
+{% block title %}Bugün Menüde | Daamduu Yemek{% endblock %}
+
+{% block extra_css %}
+<style>
+    .qr-wrapper {
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        display: none;
+    }
+
+    .qr-wrapper.show {
+        opacity: 1;
+    }
+
+    .btn-show-qr {
+        display: none;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    #qrcode {
+        display: none;
+    }
+
+    #qrcode.show {
+        display: block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Bugün Menüde Section -->
+<section id="explore-food">
+    <div class="explore-food wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mt-4 pt-5 text-content text-center">
+                        <h2 data-lang-tr="Bugün Menüde" data-lang-kg="Бүгүнкү меню">Bugün Menüde</h2>
+                        <p data-lang-tr="Günün özel menüsü" data-lang-kg="Күндүн атайын менюсу">Günün özel menüsü</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-5">
+                {% if today_menu %}
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                            <img src="{{ today_menu.dish1.image.url }}" class="img-fluid" alt="{{ today_menu.dish1.name }}" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                    <span data-lang-tr="{{ today_menu.dish1.name }}" data-lang-kg="{{ today_menu.dish1.name }}">{{ today_menu.dish1.name }}</span>
+                                    <p data-lang-tr="Kalori: {{ today_menu.dish1.calories }}" data-lang-kg="Калория: {{ today_menu.dish1.calories }}">Kalori: {{ today_menu.dish1.calories }}</p>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                            <img src="{{ today_menu.dish2.image.url }}" class="img-fluid" alt="{{ today_menu.dish2.name }}" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                    <span data-lang-tr="{{ today_menu.dish2.name }}" data-lang-kg="{{ today_menu.dish2.name }}">{{ today_menu.dish2.name }}</span>
+                                    <p data-lang-tr="Kalori: {{ today_menu.dish2.calories }}" data-lang-kg="Калория: {{ today_menu.dish2.calories }}">Kalori: {{ today_menu.dish2.calories }}</p>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                            <img src="{{ today_menu.dish3.image.url }}" class="img-fluid" alt="{{ today_menu.dish3.name }}" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                    <span data-lang-tr="{{ today_menu.dish3.name }}" data-lang-kg="{{ today_menu.dish3.name }}">{{ today_menu.dish3.name }}</span>
+                                    <p data-lang-tr="Kalori: {{ today_menu.dish3.calories }}" data-lang-kg="Калория: {{ today_menu.dish3.calories }}">Kalori: {{ today_menu.dish3.calories }}</p>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                            <img src="{{ today_menu.dish4.image.url }}" class="img-fluid" alt="{{ today_menu.dish4.name }}" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                    <span data-lang-tr="{{ today_menu.dish4.name }}" data-lang-kg="{{ today_menu.dish4.name }}">{{ today_menu.dish4.name }}</span>
+                                    <p data-lang-tr="Kalori: {{ today_menu.dish4.calories }}" data-lang-kg="Калория: {{ today_menu.dish4.calories }}">Kalori: {{ today_menu.dish4.calories }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-5">
+                        <div id="button-container">
+                            {% if not latest_order %}
+                                <button id="buy-btn" class="main-btn btn btn-orange" style="border-radius: 13px;"
+                                    data-lang-tr="100 Som | Şimdi satın al" data-lang-kg="100 сом | Азыр сатып ал">
+                                    100 Som | Şimdi satın al
+                                </button>
+                            {% else %}
+                                <button id="show-qr-btn" class="main-btn btn btn-success" style="border-radius: 13px;"
+                                    data-lang-tr="QR'yi Göster" data-lang-kg="QR кодду көрсөтүү">
+                                    QR'yi Göster
+                                </button>
+                            {% endif %}
+                        </div>
+                        <!-- QR modal -->
+                        <div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="qrModalLabel">QR</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <div id="qr-modal-container"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                {% else %}
+                    <div class="col-12 text-center">
+                        <p class="text-muted" data-lang-tr="Bugün için menü bulunmamaktadır." data-lang-kg="Бүгүнкү күнгө меню жок.">Bugün için menü bulunmamaktadır.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Ödeme Modalı -->
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-4">
+            <h5 class="modal-title mb-3" id="paymentModalLabel" data-lang-tr="Kart ile Ödeme"
+                data-lang-kg="Карта менен төлөө">Kart ile Ödeme</h5>
+            <form method="post" action="{% url 'daamduu_yemek:process_payment' %}">
+                {% csrf_token %}
+                <div class="form-group mb-2">
+                    <label for="card_name" data-lang-tr="Kart Üzerindeki İsim" data-lang-kg="Картадагы ысым">Kart Üzerindeki İsim</label>
+                    <input type="text" class="form-control" id="card_name" name="card_name" required
+                        data-placeholder-tr="Ad Soyad" data-placeholder-kg="Аты-жөнү" placeholder="Ad Soyad" />
+                </div>
+                <div class="form-group mb-2">
+                    <label for="card_number" data-lang-tr="Kart Numarası" data-lang-kg="Картанын номери">Kart Numarası</label>
+                    <input type="text" class="form-control" id="card_number" name="card_number" required
+                        placeholder="1234 5678 9012 3456" maxlength="19" pattern="[0-9\s]{13,19}" />
+                </div>
+                <div class="form-row d-flex justify-content-between mb-2">
+                    <div class="form-group me-2 w-50">
+                        <label for="expiry" data-lang-tr="Son Kullanma" data-lang-kg="Жарактуулук мөөнөтү">Son Kullanma</label>
+                        <input type="text" class="form-control" id="expiry" name="expiry" required
+                            placeholder="MM/YY" maxlength="5" pattern="(0[1-9]|1[0-2])\/([0-9]{2})" />
+                    </div>
+                    <div class="form-group w-50">
+                        <label for="cvv">CVV</label>
+                        <input type="password" class="form-control" id="cvv" name="cvv" required
+                            placeholder="123" maxlength="4" pattern="[0-9]{3,4}" />
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success w-100 mt-3" id="confirm-payment" 
+                    data-lang-tr="Ödemeyi Tamamla" data-lang-kg="Төлөмдү бүтүрүү">
+                    Ödemeyi Tamamla
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Book Section -->
+<section id="book-food">
+    <div class="book-food">
+        <div class="container book-food-text">
+            <div class="row text-center">
+                <div class="col-lg-12 col-md-12">
+                    <h2 data-lang-tr="Tutkuyla çalışan aşçılarımız tarafından her gün taze olarak pişirilir."
+                        data-lang-kg="Биздин ашпозчулар тарабынан күн сайын жаңыдан даярдалат.">
+                        Tutkuyla çalışan aşçılarımız tarafından her gün taze olarak pişirilir.
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="qr-data" 
+     data-qr-code='{% if latest_order %}{{ latest_order.qr_code_data|safe }}{% endif %}'
+     data-has-success="{% if messages %}{% for message in messages %}{% if message.tags == 'success' %}true{% endif %}{% endfor %}{% else %}false{% endif %}">
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const lang = new URLSearchParams(window.location.search).get('lang') || 'kg';
+    document.querySelectorAll('[data-lang-tr]').forEach(el => {
+        el.textContent = el.getAttribute(`data-lang-${lang}`);
+    });
+    document.querySelectorAll("input[data-placeholder-tr]").forEach(input => {
+        const newPlaceholder = input.getAttribute(`data-placeholder-${lang}`);
+        if (newPlaceholder) {
+            input.setAttribute("placeholder", newPlaceholder);
+        }
+    });
+    const activeLink = document.getElementById(`${lang}-link`);
+    if (activeLink) activeLink.classList.add("active");
+    const logo = document.getElementById('logo-img');
+    if (logo) {
+        logo.src = lang === 'kg'
+            ? "{% static 'images/Daamduu Tamak logo.png' %}"
+            : "{% static 'images/Lezzetli Yemek logo.png' %}";
+    }
+
+    // Форматирование номера карты
+    const cardNumberInput = document.getElementById('card_number');
+    if (cardNumberInput) {
+        cardNumberInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            let formattedValue = '';
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 === 0) {
+                    formattedValue += ' ';
+                }
+                formattedValue += value[i];
+            }
+            e.target.value = formattedValue;
+        });
+    }
+    // Форматирование даты (MM/YY)
+    const expiryInput = document.getElementById('expiry');
+    if (expiryInput) {
+        expiryInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 2) {
+                value = value.substring(0,2) + '/' + value.substring(2,4);
+            }
+            e.target.value = value.substring(0,5);
+        });
+    }
+
+    // Оплата и QR логика
+    const buyBtn = document.getElementById('buy-btn');
+    const showQrBtn = document.getElementById('show-qr-btn');
+    const qrModal = new bootstrap.Modal(document.getElementById('qrModal'));
+    const qrModalContainer = document.getElementById('qr-modal-container');
+    const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+    const paymentForm = document.querySelector('#paymentModal form');
+
+    if (buyBtn) {
+        buyBtn.style.display = 'inline-block';
+        buyBtn.addEventListener('click', function () {
+            paymentModal.show();
+        });
+    }
+    if (paymentForm) {
+        paymentForm.addEventListener('submit', function (e) {
+            setTimeout(function() {
+                paymentModal.hide();
+                if (showQrBtn) showQrBtn.style.display = 'inline-block';
+            }, 500);
+        });
+    }
+    if (showQrBtn) {
+        showQrBtn.style.display = 'inline-block';
+        showQrBtn.addEventListener('click', function () {
+            fetch('/api/order-info/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showQrModal(data.order);
+                } else {
+                    alert(data.message || 'Ошибка');
+                }
+            });
+        });
+    }
+    function showQrModal(order) {
+        qrModalContainer.innerHTML = '';
+        const qr = document.createElement('canvas');
+        new QRious({
+            element: qr,
+            value: order.qr_code_data,
+            size: 200
+        });
+        qrModalContainer.appendChild(qr);
+        const info = document.createElement('div');
+        info.className = 'mt-3';
+        info.innerHTML = `<div><b>№:</b> ${order.order_number}</div><div><b>Төлөндү:</b> ${order.amount} сом</div>`;
+        qrModalContainer.appendChild(info);
+        qrModal.show();
+    }
+});
+</script>
+{% endblock %}

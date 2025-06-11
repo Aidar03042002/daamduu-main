@@ -1,0 +1,90 @@
+{% extends "daamduu_yemek_app/base_admin.html" %}
+{% load static %}
+
+{% block title %}Admin Panel | Daamduu Admin{% endblock %}
+
+{% block content %}
+<header class="bg-dark text-white text-center pb-2 mb-4">
+  <div class="container py-2 d-flex justify-content-end">
+    <a class="nav-link d-flex align-items-center gap-1 mt-4" href="{% url 'daamduu_yemek:logout' %}">
+      <i class="fas fa-sign-out-alt"></i>
+      <span data-lang-tr="Çıkış Yap" data-lang-kg="Чыгуу"></span>
+    </a>
+    <div class="language-switcher">
+      <a href="?lang=kg" class="lang-link" id="kg-link">KG</a>
+      <span class="divider">|</span>
+      <a href="?lang=tr" class="lang-link" id="tr-link">TR</a>
+    </div>
+  </div>
+  <h1 data-lang-tr="Lezzetli Admin Panel" data-lang-kg="Даамдуу Админ Панель"></h1>
+  <p data-lang-tr="Yönetim işlemlerini buradan gerçekleştirebilirsiniz"
+    data-lang-kg="Башкаруу иштерин ушул жерден жүргүзсөңүз болот">
+  </p>
+</header>
+
+<div class="admin">
+  <main class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card p-4 shadow">
+          <h3 data-lang-tr="Menüler" data-lang-kg="Менюлар">
+            <i class="fas fa-utensils me-2"></i>Menü Yönetimi
+          </h3>
+          <p data-lang-tr="Menüleri düzenleyin." data-lang-kg="Менюларды түзөтүңүз.">Menüleri düzenleyin.</p>
+          <a href="{% url 'daamduu_yemek:admin_menu' %}" class="btn btn-outline-secondary w-100" data-lang-tr="Menüleri düzenleyin"
+            data-lang-kg="Менюларды түзөт">Menüleri Yönet</a>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card p-4 shadow">
+          <h3 data-lang-tr="Kullanıcılar" data-lang-kg="Колдонуучулар">
+            <i class="fas fa-users-cog me-2"></i>Kullanıcı Yönetimi
+          </h3>
+          <p data-lang-tr="Kullanıcıları yönetin." data-lang-kg="Колдонуучуларды башкар.">Kullanıcıları yönetin.</p>
+          <a href="{% url 'daamduu_yemek:admin_users' %}" class="btn btn-outline-secondary w-100" data-lang-tr="Kullanıcıları Yönet"
+            data-lang-kg="Колдонуучуларды башкар">Kullanıcıları Yönet</a>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card p-4 shadow">
+          <h3 data-lang-tr="QR Kod Tarayıcı" data-lang-kg="QR код сканери">
+            <i class="fas fa-qrcode me-2"></i>QR Kod Tarayıcı
+          </h3>
+          <p data-lang-tr="QR Kodu Tarayın." data-lang-kg="QR кодду сканда.">QR Kodu Tarayın.</p>
+          <a href="{% url 'daamduu_yemek:admin_qr_scanner' %}" class="btn btn-outline-secondary w-100" data-lang-tr="QR Kodu Tara"
+            data-lang-kg="QR кодду сканерле">QR Kodu Tara</a>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card p-4 shadow">
+          <h3 data-lang-tr="Siparişler" data-lang-kg="Заказы">
+            <i class="fas fa-receipt me-2"></i>Siparişler
+          </h3>
+          <p data-lang-tr="Siparişleri görüntüleyin." data-lang-kg="Заказдарды көрүңүз.">Siparişleri görüntüleyin.</p>
+          <a href="{% url 'daamduu_yemek:admin_orders' %}" class="btn btn-outline-secondary w-100" data-lang-tr="Siparişleri Görüntüle" data-lang-kg="Заказдарды көрүү">Siparişleri Görüntüle</a>
+        </div>
+      </div>
+
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, deserunt error. Impedit saepe debitis
+        eveniet sint enim, ipsum eos nulla magnam est expedita voluptate non vitae, placeat, dignissimos modi fuga?
+        Voluptatibus quaerat ut rem unde sequi vel nisi totam exercitationem, consequuntur quis? Nemo explicabo
+        beatae voluptatum ullam ab voluptatem quam, ad dolores consequatur laboriosam. Minus ipsum optio quidem
+        corrupti ad.
+        At soluta delectus tempore quidem cum minus facere voluptas quia voluptatibus. Accusantium consequatur
+        impedit reiciendis. Assumenda aliquam, hic mollitia incidunt soluta non, praesentium iure, suscipit cumque
+        architecto amet doloribus atque?
+        Accusantium illo fuga debitis aspernatur deleniti atque sint? Beatae velit ipsam sapiente dolorum commodi
+        dolor incidunt enim atque harum ipsum rem minima quibusdam quasi, in itaque perferendis libero voluptates.
+        Fugiat.
+        Illo autem veniam cumque veritatis recusandae deserunt quae! Repudiandae quis provident excepturi ut. Rerum
+        quia cum nam et ipsum dicta aperiam, magni pariatur, tenetur debitis temporibus dolorem, sed quod
+        doloremque?</p>
+    </div>
+  </main>
+</div>
+{% endblock %}
+
+{% block extra_js %}{{ block.super }}{% endblock %}

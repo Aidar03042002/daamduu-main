@@ -1,0 +1,279 @@
+{% extends "daamduu_yemek_app/base_admin.html" %}
+{% load static %}
+
+{% block title %}Menü | Daamduu Admin{% endblock %}
+
+{% block extra_css %}
+<style>
+    body {
+        background: #f7f8fa !important;
+        color: #222;
+    }
+    .admin-menu-section {
+        max-width: 900px;
+        margin: 40px auto 0 auto;
+    }
+    .admin-card {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+        padding: 2.5rem 2rem 2rem 2rem;
+        margin-bottom: 2.5rem;
+    }
+    .admin-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: #ff6600;
+        text-align: center;
+    }
+    .admin-menu-table th, .admin-menu-table td {
+        vertical-align: middle;
+        text-align: center;
+    }
+    .admin-menu-table th {
+        background: #f3f4f6;
+        color: #333;
+        font-weight: 600;
+    }
+    .admin-menu-table tbody tr {
+        background: #fff;
+        transition: box-shadow 0.2s;
+    }
+    .admin-menu-table tbody tr:hover {
+        box-shadow: 0 2px 12px rgba(255,102,0,0.08);
+    }
+    .btn-orange {
+        background: #ff6600;
+        color: #fff;
+        border-radius: 8px;
+        border: none;
+        padding: 0.4rem 1.2rem;
+        font-weight: 500;
+        transition: background 0.2s;
+    }
+    .btn-orange:hover {
+        background: #e65c00;
+    }
+    .btn-outline-danger {
+        border-radius: 8px;
+    }
+    .mb-4 {
+        margin-bottom: 2rem !important;
+    }
+    .form-label {
+        font-weight: 500;
+    }
+    .dish-img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    /* Dil Seçenekleri Stilleri */
+    .language-switcher {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-family: 'Segoe UI', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        background-color: transparent;
+    }
+
+    .lang-link {
+        color: var(--text-primary);
+        text-decoration: none;
+        padding: 4px 10px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .lang-link:hover {
+        background-color: rgb(79, 74, 74);
+    }
+
+    .lang-link.active {
+        background-color: rgb(79, 74, 74);
+        color: var(--text-primary);
+        font-weight: 700;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="admin-menu-section">
+    <div class="language-switcher">
+        <a href="?lang=kg" class="lang-link" id="kg-link">KG</a>
+        <span class="divider">|</span>
+        <a href="?lang=tr" class="lang-link" id="tr-link">TR</a>
+    </div>
+    <div class="admin-title">
+        <i class="fas fa-utensils me-2"></i>
+        <span data-lang-tr="Menüler" data-lang-kg="Менюлар">Менюлар</span>
+    </div>
+    {% if message %}
+    <div class="alert alert-{{ message.type }} alert-dismissible fade show" role="alert">
+        {{ message.text }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    <!-- Добавление блюда -->
+    <div class="admin-card mb-4">
+        <h4 class="mb-3" data-lang-tr="Yemek Ekle" data-lang-kg="Тамак кошуу">Тамак кошуу</h4>
+        <form method="post" enctype="multipart/form-data" class="row g-3 align-items-end">
+            {% csrf_token %}
+            <input type="hidden" name="add_dish" value="1">
+            <div class="col-md-5">
+                <label for="dish_name" class="form-label" data-lang-tr="Yemek Adı" data-lang-kg="Аты">Аты</label>
+                <input type="text" class="form-control" id="dish_name" name="dish_name" required data-placeholder-tr="Yemek adını giriniz" data-placeholder-kg="Тамактын атын киргизиңиз">
+            </div>
+            <div class="col-md-3">
+                <label for="dish_calories" class="form-label" data-lang-tr="Kalori" data-lang-kg="Калория">Калория</label>
+                <input type="number" class="form-control" id="dish_calories" name="dish_calories" required min="1" data-placeholder-tr="Kalori değeri" data-placeholder-kg="Калория мааниси">
+            </div>
+            <div class="col-md-3">
+                <label for="dish_image" class="form-label" data-lang-tr="Fotoğraf" data-lang-kg="Сүрөт">Сүрөт</label>
+                <input type="file" class="form-control" id="dish_image" name="dish_image" accept="image/*" required>
+            </div>
+            <div class="col-md-1 d-grid">
+                <button type="submit" class="btn btn-orange" data-lang-tr="Ekle" data-lang-kg="Кошуу">Кошуу</button>
+            </div>
+        </form>
+    </div>
+    <!-- Составление меню на день -->
+    <div class="admin-card mb-4">
+        <h4 class="mb-3" data-lang-tr="Günlük Menü Oluştur" data-lang-kg="Күндүк меню түзүү">Күндүк меню түзүү</h4>
+        <form method="post" class="row g-3 align-items-end">
+            {% csrf_token %}
+            <input type="hidden" name="add_menu" value="1">
+            <div class="col-md-3">
+                <label for="menu_date" class="form-label" data-lang-tr="Tarih" data-lang-kg="Дата">Дата</label>
+                <input type="date" class="form-control" id="menu_date" name="menu_date" required>
+            </div>
+            <div class="col-md-2">
+                <label for="dish1" class="form-label" data-lang-tr="Yemek 1" data-lang-kg="Тамак 1">Тамак 1</label>
+                <select class="form-select" id="dish1" name="dish1" required>
+                    <option value="" disabled selected data-lang-tr="Seçiniz" data-lang-kg="Тандаңыз">Тандаңыз</option>
+                    {% for dish in dishes %}
+                    <option value="{{ dish.id }}">{{ dish.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="dish2" class="form-label" data-lang-tr="Yemek 2" data-lang-kg="Тамак 2">Тамак 2</label>
+                <select class="form-select" id="dish2" name="dish2" required>
+                    <option value="" disabled selected data-lang-tr="Seçiniz" data-lang-kg="Тандаңыз">Тандаңыз</option>
+                    {% for dish in dishes %}
+                    <option value="{{ dish.id }}">{{ dish.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="dish3" class="form-label" data-lang-tr="Yemek 3" data-lang-kg="Тамак 3">Тамак 3</label>
+                <select class="form-select" id="dish3" name="dish3" required>
+                    <option value="" disabled selected data-lang-tr="Seçiniz" data-lang-kg="Тандаңыз">Тандаңыз</option>
+                    {% for dish in dishes %}
+                    <option value="{{ dish.id }}">{{ dish.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="dish4" class="form-label" data-lang-tr="Yemek 4" data-lang-kg="Тамак 4">Тамак 4</label>
+                <select class="form-select" id="dish4" name="dish4" required>
+                    <option value="" disabled selected data-lang-tr="Seçiniz" data-lang-kg="Тандаңыз">Тандаңыз</option>
+                    {% for dish in dishes %}
+                    <option value="{{ dish.id }}">{{ dish.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-1 d-grid">
+                <button type="submit" class="btn btn-orange" data-lang-tr="Oluştur" data-lang-kg="Түзүү">Түзүү</button>
+            </div>
+        </form>
+    </div>
+    <!-- Список меню на день -->
+    <div class="admin-card">
+        <h4 class="mb-3" data-lang-tr="Günlük Menüler" data-lang-kg="Күндүк меню">Күндүк меню</h4>
+        <table class="table admin-menu-table align-middle text-center">
+            <thead>
+                <tr>
+                    <th data-lang-tr="Tarih" data-lang-kg="Дата">Дата</th>
+                    <th data-lang-tr="Yemek 1" data-lang-kg="Тамак 1">Тамак 1</th>
+                    <th data-lang-tr="Yemek 2" data-lang-kg="Тамак 2">Тамак 2</th>
+                    <th data-lang-tr="Yemek 3" data-lang-kg="Тамак 3">Тамак 3</th>
+                    <th data-lang-tr="Yemek 4" data-lang-kg="Тамак 4">Тамак 4</th>
+                    <th data-lang-tr="Sil" data-lang-kg="Сброс">Сброс</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for menu in menus %}
+                <tr>
+                    <td>{{ menu.date|date:'d.m.Y' }}</td>
+                    <td>
+                        <img src="{{ menu.dish1.image.url }}" class="dish-img mb-1" alt="{{ menu.dish1.name }}"><br>
+                        <span>{{ menu.dish1.name }}</span>
+                    </td>
+                    <td>
+                        <img src="{{ menu.dish2.image.url }}" class="dish-img mb-1" alt="{{ menu.dish2.name }}"><br>
+                        <span>{{ menu.dish2.name }}</span>
+                    </td>
+                    <td>
+                        <img src="{{ menu.dish3.image.url }}" class="dish-img mb-1" alt="{{ menu.dish3.name }}"><br>
+                        <span>{{ menu.dish3.name }}</span>
+                    </td>
+                    <td>
+                        <img src="{{ menu.dish4.image.url }}" class="dish-img mb-1" alt="{{ menu.dish4.name }}"><br>
+                        <span>{{ menu.dish4.name }}</span>
+                    </td>
+                    <td>
+                        <form method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="delete_menu_id" value="{{ menu.id }}">
+                            <button type="submit" class="btn btn-outline-danger btn-sm" data-lang-tr="Sil" data-lang-kg="Сброс">Сброс</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="6" class="text-center text-muted" data-lang-tr="Menü yok" data-lang-kg="Меню жок">Меню жок</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="back-btn" style="margin-top:2.5rem; display:flex; justify-content:center;">
+    <a href="{% url 'daamduu_yemek:admin_dashboard' %}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-2"></i>
+        <span data-lang-tr="Yönetici Paneline Dön" data-lang-kg="Админ панелге кайтуу">Yönetici Paneline Dön</span>
+    </a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const lang = new URLSearchParams(window.location.search).get('lang') || 'kg';
+    document.querySelectorAll('[data-lang-tr]').forEach(el => {
+        el.textContent = el.getAttribute(`data-lang-${lang}`);
+    });
+    document.querySelectorAll("input[data-placeholder-tr]").forEach(input => {
+        const newPlaceholder = input.getAttribute(`data-placeholder-${lang}`);
+        if (newPlaceholder) {
+            input.setAttribute("placeholder", newPlaceholder);
+        }
+    });
+    const activeLink = document.getElementById(`${lang}-link`);
+    if (activeLink) activeLink.classList.add("active");
+    const logo = document.getElementById('logo-img');
+    if (logo) {
+        logo.src = lang === 'kg'
+            ? "{% static 'images/Daamduu Tamak logo.png' %}"
+            : "{% static 'images/Lezzetli Yemek logo.png' %}";
+    }
+});
+</script>
+{% endblock %}

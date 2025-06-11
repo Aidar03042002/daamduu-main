@@ -1,0 +1,88 @@
+{% extends "daamduu_yemek_app/base.html" %}
+{% load static %}
+
+{% block title %}Takım | Daamduu Yemek{% endblock %}
+
+{% block content %}
+<!-- Team Section -->
+<section id="team">
+    <div class="team wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-content text-center pb-5">
+                    <h2 data-lang-tr="Senin için yemek pişirecekler" data-lang-kg="Сиз үчүн тамак даярдайт">Senin için yemek pişirecekler</h2>
+                </div>
+                <div class="col-lg-4 col-sm-6 mb-4">
+                    <div class="card">
+                        <img src="{% static 'images/team/şef-1.png' %}" class="img-fluid" />
+                        <div class="team-caption py-4 px-2">
+                            <h4 data-lang-tr="İslam İLYASOV" data-lang-kg="Ислам Ильясов">İslam İLYASOV</h4>
+                            <h6 data-lang-tr="Ekmek Pişirici" data-lang-kg="Нан бышыруучу">Ekmek Pişirici</h6>
+                            <p data-lang-tr="Sizin için ekmek ve unlu mamuller pişirir." data-lang-kg="Сиз үчүн нан жана ун азыктарын бышырат.">Sizin için ekmek ve unlu mamuller pişirir.</p>
+                            <div class="social-icon text-center mt-auto">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-telegram"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 mb-4">
+                    <div class="card">
+                        <img src="{% static 'images/team/şef-2.png' %}" class="img-fluid" />
+                        <div class="team-caption py-4 px-2">
+                            <h4 data-lang-tr="Gülnara MURADOVA" data-lang-kg="Гүлнара Мурадова">Gülnara MURADOVA</h4>
+                            <h6 data-lang-tr="Aşçı" data-lang-kg="Ашпозчу">Aşçı</h6>
+                            <p data-lang-tr="Sizin için lezzetli yemekleri pişirir." data-lang-kg="Сиз үчүн даамдуу тамактарды бышырат.">Sizin için lezzetli yemekleri pişirir.</p>
+                            <div class="social-icon text-center mt-auto">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-telegram"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 mb-4">
+                    <div class="card">
+                        <img src="{% static 'images/team/şef-3.png' %}" class="img-fluid" />
+                        <div class="team-caption py-4 px-2">
+                            <h4 data-lang-tr="Mikail ÇAHALOV" data-lang-kg="Микаил Чахалов">Mikail ÇAHALOV</h4>
+                            <h6 data-lang-tr="Aşçıbaşı" data-lang-kg="Баш ашпозчу">Aşçıbaşı</h6>
+                            <p data-lang-tr="Mutfakta diğer aşçılardan sorumludur ve sizin için lezzetli yemekleri pişirir." data-lang-kg="Ашканада башка ашпозчуларга жооп берип, сиз үчүн даамдуу тамактарды бышырат.">Mutfakta diğer aşçılardan sorumludur ve sizin için lezzetli yemekleri pişirir.</p>
+                            <div class="social-icon text-center mt-auto">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-telegram"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Book Section -->
+<section id="book-food">
+    <div class="book-food">
+        <div class="container book-food-text">
+            <div class="row text-center">
+                <div class="col-lg-12 col-md-12">
+                    <h2 data-lang-kg="Биздин ашпозчулар тарабынан күн сайын жаңыдан даярдалат." data-lang-tr="Tutkuyla çalışan aşçılarımız tarafından her gün taze olarak pişirilir.">Tutkuyla çalışan aşçılarımız tarafından her gün taze olarak pişirilir.</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Language switching functionality is handled in base.html
+});
+</script>
+{% endblock %}

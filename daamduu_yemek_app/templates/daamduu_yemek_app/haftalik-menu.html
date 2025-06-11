@@ -1,0 +1,406 @@
+{% extends "daamduu_yemek_app/base.html" %}
+{% load static %}
+
+{% block title %}Haftalık Menü | Daamduu Yemek{% endblock %}
+
+{% block content %}
+<!-- Haftalık Menü Section -->
+<section id="explore-food-week">
+    <div class="explore-food wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mt-4 pt-5 text-content text-center">
+                        <h2 data-lang-tr="Haftalık Menü" data-lang-kg="Жумалык меню">Haftalık Menü</h2>
+                        <h3 data-lang-tr="05.05.2025 Pazartesi" data-lang-kg="05.05.2025 Дүйшөмбү">05.05.2025 Pazartesi</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-4 pb-5">
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Erişte Çorbası.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Erişte Çorbası" data-lang-kg="Кесме шорпо">Erişte Çorbası </span>
+                                <p data-lang-tr="Kalori: 145" data-lang-kg="Калория: 145">Kalori: 145</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Kavurma.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Kavurma" data-lang-kg="Куурдак">Kavurma </span>
+                                <p data-lang-tr="Kalori: 361" data-lang-kg="Калория: 361">Kalori: 361</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/sebzeli pirinç.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Sebzeli Pirinç Pilavı" data-lang-kg="Жашылча палоо">Sebzeli Pirinç Pilavı</span>
+                                <p data-lang-tr="Kalori: 365" data-lang-kg="Калория: 365">Kalori: 365</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Cacık.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Cacık" data-lang-kg="Чалап">Cacık</span>
+                                <p data-lang-tr="Kalori: 200" data-lang-kg="Калория: 200">Kalori: 200</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-content text-center">
+                        <h3 data-lang-tr="06.05.2025 Salı" data-lang-kg="06.05.2025 Шейшемби">06.05.2025 Salı</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-4 pb-5">
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Erişte Çorbası.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Erişte Çorbası" data-lang-kg="Кесме шорпо">Erişte Çorbası </span>
+                                <p data-lang-tr="Kalori: 145" data-lang-kg="Калория: 145">Kalori: 145</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Kavurma.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Kavurma" data-lang-kg="Куурдак">Kavurma </span>
+                                <p data-lang-tr="Kalori: 361" data-lang-kg="Калория: 361">Kalori: 361</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/sebzeli pirinç.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Sebzeli Pirinç Pilavı" data-lang-kg="Жашылча палоо">Sebzeli Pirinç Pilavı</span>
+                                <p data-lang-tr="Kalori: 365" data-lang-kg="Калория: 365">Kalori: 365</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Cacık.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Cacık" data-lang-kg="Чалап">Cacık</span>
+                                <p data-lang-tr="Kalori: 200" data-lang-kg="Калория: 200">Kalori: 200</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-content text-center">
+                        <h3 data-lang-tr="07.05.2025 Çarşamba" data-lang-kg="07.05.2025 Шаршемби">07.05.2025 Çarşamba</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-4 pb-5">
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Erişte Çorbası.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Erişte Çorbası" data-lang-kg="Кесме шорпо">Erişte Çorbası </span>
+                                <p data-lang-tr="Kalori: 145" data-lang-kg="Калория: 145">Kalori: 145</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Kavurma.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Kavurma" data-lang-kg="Куурдак">Kavurma </span>
+                                <p data-lang-tr="Kalori: 361" data-lang-kg="Калория: 361">Kalori: 361</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/sebzeli pirinç.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Sebzeli Pirinç Pilavı" data-lang-kg="Жашылча палоо">Sebzeli Pirinç Pilavı</span>
+                                <p data-lang-tr="Kalori: 365" data-lang-kg="Калория: 365">Kalori: 365</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Cacık.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Cacık" data-lang-kg="Чалап">Cacık</span>
+                                <p data-lang-tr="Kalori: 200" data-lang-kg="Калория: 200">Kalori: 200</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-content text-center">
+                        <h3 data-lang-tr="08.05.2025 Perşembe" data-lang-kg="08.05.2025 Бейшемби"></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-4 pb-5">
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Erişte Çorbası.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Erişte Çorbası" data-lang-kg="Кесме шорпо">Erişte Çorbası </span>
+                                <p data-lang-tr="Kalori: 145" data-lang-kg="Калория: 145">Kalori: 145</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Kavurma.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Kavurma" data-lang-kg="Куурдак">Kavurma </span>
+                                <p data-lang-tr="Kalori: 361" data-lang-kg="Калория: 361">Kalori: 361</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/sebzeli pirinç.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Sebzeli Pirinç Pilavı" data-lang-kg="Жашылча палоо">Sebzeli Pirinç Pilavı</span>
+                                <p data-lang-tr="Kalori: 365" data-lang-kg="Калория: 365">Kalori: 365</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Cacık.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Cacık" data-lang-kg="Чалап">Cacık</span>
+                                <p data-lang-tr="Kalori: 200" data-lang-kg="Калория: 200">Kalori: 200</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-content text-center">
+                        <h3 data-lang-tr="09.05.2025 Cuma" data-lang-kg="09.05.2025 Жума"></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-4 pb-5">
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Erişte Çorbası.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Erişte Çorbası" data-lang-kg="Кесме шорпо">Erişte Çorbası </span>
+                                <p data-lang-tr="Kalori: 145" data-lang-kg="Калория: 145">Kalori: 145</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Kavurma.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Kavurma" data-lang-kg="Куурдак">Kavurma </span>
+                                <p data-lang-tr="Kalori: 361" data-lang-kg="Калория: 361">Kalori: 361</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/sebzeli pirinç.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Sebzeli Pirinç Pilavı" data-lang-kg="Жашылча палоо">Sebzeli Pirinç Pilavı</span>
+                                <p data-lang-tr="Kalori: 365" data-lang-kg="Калория: 365">Kalori: 365</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Cacık.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Cacık" data-lang-kg="Чалап">Cacık</span>
+                                <p data-lang-tr="Kalori: 200" data-lang-kg="Калория: 200">Kalori: 200</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-content text-center">
+                        <h3 data-lang-tr="10.05.2025 Cumartesi" data-lang-kg="10.05.2025 Ишемби"></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-4 pb-5">
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Erişte Çorbası.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Erişte Çorbası" data-lang-kg="Кесме шорпо">Erişte Çorbası</span>
+                                <p data-lang-tr="Kalori: 145" data-lang-kg="Калория: 145">Kalori: 145</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Kavurma.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Kavurma" data-lang-kg="Куурдак">Kavurma </span>
+                                <p data-lang-tr="Kalori: 361" data-lang-kg="Калория: 361">Kalori: 361</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/sebzeli pirinç.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Sebzeli Pirinç Pilavı" data-lang-kg="Жашылча палоо">Sebzeli Pirinç Pilavı</span>
+                                <p data-lang-tr="Kalori: 365" data-lang-kg="Калория: 365">Kalori: 365</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Cacık.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Cacık" data-lang-kg="Чалап">Cacık</span>
+                                <p data-lang-tr="Kalori: 200" data-lang-kg="Калория: 200">Kalori: 200</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-content text-center">
+                        <h3 data-lang-tr="11.05.2025 Pazar" data-lang-kg="11.05.2025 Жекшемби"></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-4 pb-5">
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Erişte Çorbası.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Erişte Çorbası" data-lang-kg="Кесме шорпо">Erişte Çorbası</span>
+                                <p data-lang-tr="Kalori: 145" data-lang-kg="Калория: 145">Kalori: 145</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Kavurma.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Kavurma" data-lang-kg="Куурдак">Kavurma </span>
+                                <p data-lang-tr="Kalori: 361" data-lang-kg="Калория: 361">Kalori: 361</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/sebzeli pirinç.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Sebzeli Pirinç Pilavı" data-lang-kg="Жашылча палоо">Sebzeli Pirinç Pilavı</span>
+                                <p data-lang-tr="Kalori: 365" data-lang-kg="Калория: 365">Kalori: 365</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                    <div class="card">
+                        <img src="{% static 'images/yemek/Cacık.jpg' %}" class="img-fluid" />
+                        <div class="p-4 pb-1">
+                            <div>
+                                <span data-lang-tr="Cacık" data-lang-kg="Чалап">Cacık</span>
+                                <p data-lang-tr="Kalori: 200" data-lang-kg="Калория: 200">Kalori: 200</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Language switching functionality is handled in base.html
+});
+</script>
+{% endblock %}

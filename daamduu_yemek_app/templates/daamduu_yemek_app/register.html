@@ -1,0 +1,139 @@
+{% extends "daamduu_yemek_app/base.html" %}
+{% load static %}
+
+{% block title %}Kayıt Ol | Daamduu Yemek{% endblock %}
+
+{% block extra_css %}
+<style>
+    .auth-page {
+        min-height: 100vh;
+        background: url('{% static "images/bg/bg-21.jpg" %}') no-repeat center center/cover;
+        padding: 2rem 0;
+    }
+
+    .card {
+        backdrop-filter: blur(15px);
+        background-color: rgba(255, 255, 255, 0.74);
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-orange {
+        background-color: #ff6600;
+        color: white;
+    }
+
+    .btn-orange:hover {
+        background-color: #e65c00;
+    }
+
+    .google-btn {
+        background-color: #db4437;
+        color: white;
+    }
+
+    .google-btn:hover {
+        background-color: #c1351d;
+    }
+
+    .form-control {
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .form-control:focus {
+        background-color: #fff;
+    }
+
+    header { display: none; }
+
+    /* Dil Seçenekleri Stilleri */
+    .language-switcher {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-family: 'Segoe UI', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        background-color: transparent;
+    }
+
+    .lang-link {
+        color: var(--text-primary);
+        text-decoration: none;
+        padding: 4px 10px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .lang-link:hover {
+        background-color: rgb(79, 74, 74);
+    }
+
+    .lang-link.active,
+    .lang-link.active:hover {
+        background-color: rgb(79, 74, 74);
+        color: #fff !important;
+        font-weight: 700;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-page d-flex align-items-center">
+    <div class="container">
+        <div class="language-switcher">
+            <a href="?lang=kg" class="lang-link" id="kg-link">KG</a>
+            <span class="divider">|</span>
+            <a href="?lang=tr" class="lang-link" id="tr-link">TR</a>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card text-center">
+                    <!-- Logo -->
+                    <img id="logo-img" src="{% static 'images/Daamduu Tamak logo.png' %}" alt="Logo"
+                        class="img-fluid mx-auto d-block mb-3" style="max-width: 120px;">
+
+                    <!-- Hoşgeldiniz Yazısı -->
+                    <h5 class="text-muted mb-4" data-lang-tr="Kayıt Ol" data-lang-kg="Катталуу"></h5>
+
+                    <!-- Kayıt Formu -->
+                    <form method="post" action="{% url 'daamduu_yemek:register' %}">
+                        {% csrf_token %}
+                        <input type="text" name="full_name" class="form-control mb-3" placeholder="Adınız Soyadınız" required>
+                        <input type="email" name="email" class="form-control mb-3" placeholder="E-posta adresiniz(@manas.edu.kg)" required>
+                        <input type="password" name="password" class="form-control mb-3" placeholder="Şifreniz" required>
+                        <button type="submit" class="btn btn-orange w-100" data-lang-tr="Kayıt Ol"
+                            data-lang-kg="Катталуу">Kayıt Ol</button>
+                    </form>
+
+                    <hr class="my-4">
+                    <p class="mt-3 text-center">
+                        <span data-lang-tr="Zaten hesabınız var mı?" data-lang-kg="Катталган аккаунтуңуз барбы?"></span>
+                        <a href="{% url 'daamduu_yemek:login' %}" class="fw-bold text-decoration-none" data-lang-tr="Giriş Yap"
+                            data-lang-kg="Кирүү"></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const lang = new URLSearchParams(window.location.search).get('lang') || 'kg';
+    document.querySelectorAll('[data-lang-tr]').forEach(el => {
+        el.textContent = el.getAttribute(`data-lang-${lang}`);
+    });
+    const logo = document.getElementById('logo-img');
+    if (lang === 'kg') {
+        logo.src = "{% static 'images/Daamduu Tamak logo.png' %}";
+    } else {
+        logo.src = "{% static 'images/Lezzetli Yemek logo.png' %}";
+    }
+</script>
+{% endblock %}

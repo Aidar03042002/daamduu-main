@@ -1,0 +1,112 @@
+{% extends "daamduu_yemek_app/base_admin.html" %}
+{% load static %}
+
+{% block title %}Siparişler | Daamduu Admin{% endblock %}
+
+{% block extra_css %}
+<style>
+    body { background: #f7f8fa !important; color: #222; }
+    .admin-orders-card { background: #fff; border-radius: 18px; box-shadow: 0 4px 24px rgba(0,0,0,0.07); padding: 2.5rem 2rem 2rem 2rem; max-width: 1100px; margin: 40px auto 0 auto; }
+    .admin-orders-title { font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; color: #ff6600; text-align: center; }
+    .admin-orders-table th, .admin-orders-table td { vertical-align: middle; text-align: center; }
+    .admin-orders-table th { background: #f3f4f6; color: #333; font-weight: 600; }
+    .admin-orders-table tbody tr { background: #fff; transition: box-shadow 0.2s; }
+    .admin-orders-table tbody tr:hover { box-shadow: 0 2px 12px rgba(255,102,0,0.08); }
+    .btn-orange { background: #ff6600; color: #fff; border-radius: 8px; border: none; padding: 0.4rem 1.2rem; font-weight: 500; transition: background 0.2s; }
+    .btn-orange:hover { background: #e65c00; }
+    .btn-outline-danger { border-radius: 8px; }
+    .back-btn { margin-top: 2.5rem; display: flex; justify-content: center; }
+    .language-switcher { margin: 2rem auto 0 auto; text-align: center; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="language-switcher">
+    <a href="?lang=kg" class="lang-link" id="kg-link">KG</a>
+    <span class="divider">|</span>
+    <a href="?lang=tr" class="lang-link" id="tr-link">TR</a>
+</div>
+<div class="admin-orders-card">
+    <div class="admin-orders-title" data-lang-tr="Siparişler" data-lang-kg="Заказы">Siparişler</div>
+    {% if message %}
+    <div class="alert alert-{{ message.type }} alert-dismissible fade show" role="alert">
+        {{ message.text }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    <table class="table admin-orders-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th data-lang-tr="Kullanıcı" data-lang-kg="Колдонуучу">Kullanıcı</th>
+                <th data-lang-tr="Sipariş No" data-lang-kg="Тапшырма №">Sipariş No</th>
+                <th data-lang-tr="Tutar" data-lang-kg="Сумма">Tutar</th>
+                <th data-lang-tr="Tarih" data-lang-kg="Дата">Tarih</th>
+                <th data-lang-tr="Durum" data-lang-kg="Статус">Durum</th>
+                <th data-lang-tr="Son 4 Kart" data-lang-kg="Картанын 4 саны">Son 4 Kart</th>
+                <th data-lang-tr="İşlem" data-lang-kg="Амал">İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ order.user.get_full_name|default:order.user.username }}</td>
+                <td>{{ order.order_number }}</td>
+                <td>{{ order.amount }}</td>
+                <td>{{ order.payment_date|date:'d.m.Y H:i' }}</td>
+                <td>
+                    {% if order.status == 'active' %}
+                        <span class="badge bg-success">Active</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Used</span>
+                    {% endif %}
+                </td>
+                <td>{{ order.card_last_four }}</td>
+                <td>
+                    {% if order.status == 'active' %}
+                    <form method="post" action="" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="set_used_id" value="{{ order.id }}" />
+                        <button type="submit" class="btn btn-warning btn-sm" data-lang-tr="Kullanıldı" data-lang-kg="Колдонуулган">Kullanıldı</button>
+                    </form>
+                    {% endif %}
+                    <form method="post" action="" style="display:inline; margin-left: 6px;">
+                        {% csrf_token %}
+                        <input type="hidden" name="delete_order_id" value="{{ order.id }}" />
+                        <button type="submit" class="btn btn-outline-danger btn-sm" data-lang-tr="Sil" data-lang-kg="Өчүрүү" onclick="return confirm('Silmek istediğinize emin misiniz?');">Sil</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="8" class="text-center text-muted" data-lang-tr="Sipariş yok" data-lang-kg="Заказ жок">Sipariş yok</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="back-btn">
+        <a href="{% url 'daamduu_yemek:admin_dashboard' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>
+            <span data-lang-tr="Yönetici Paneline Dön" data-lang-kg="Админ панелге кайтуу">Yönetici Paneline Dön</span>
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const lang = new URLSearchParams(window.location.search).get('lang') || 'kg';
+    document.querySelectorAll('[data-lang-tr]').forEach(el => {
+        el.textContent = el.getAttribute(`data-lang-${lang}`);
+    });
+    const activeLink = document.getElementById(`${lang}-link`);
+    if (activeLink) activeLink.classList.add("active");
+    const logo = document.getElementById('logo-img');
+    if (logo) {
+        logo.src = lang === 'kg'
+            ? "{% static 'images/Daamduu Tamak logo.png' %}"
+            : "{% static 'images/Lezzetli Yemek logo.png' %}";
+    }
+});
+</script>
+{% endblock %} 
