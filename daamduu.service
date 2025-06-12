@@ -1,0 +1,13 @@
+[Unit]
+Description=Daamduu Yemek Django Application
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/daamduu
+Environment="PATH=/var/www/daamduu/venv/bin"
+ExecStart=/var/www/daamduu/venv/bin/gunicorn --config gunicorn_config.py daamduu_yemek_project.wsgi:application
+
+[Install]
+WantedBy=multi-user.target 
